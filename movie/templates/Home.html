@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+{% load bootstrap %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Homepage1</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main_page.css' %}">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href=https://use.fontawesome.com/releases/v5.1.0/css/all.css>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+</head>
+
+<body onload="odliczaj()">
+<header class="showcase">
+			<div class="showcase-top">
+				<div id="sidebar">
+					<div class="toggle-btn" onclick="toggleSidebar(this)">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+					<div class="list">
+						<div class="item" >
+							<a href="{% url 'AllMovies' %}" class="btn btn-danger btn-xl">Filmy</a>
+						</div>
+						<div class="item">
+							<a href="{% url 'AllDirectors' %}" class="btn btn-danger btn-xl">Reżyserowie</a>
+						</div>
+						<div class="item">
+							<a href="{% url 'TopTen' %}" class="btn btn-danger btn-xl">Top10</a>
+						</div>
+					{% if user.is_authenticated %}
+						<!--<div class="item">
+							<a href="{% url 'New_Movie' %}" class="btn btn-danger btn-xl">Dodaj Film</a>
+						</div>
+						<div class="item">
+							<a href="{% url 'New_Directors' %}" class="btn btn-danger btn-xl">Dodaj Reżysera</a>
+						</div>--!>
+                        <div class="item">
+							<a class="nav-link" id="clock"></a>
+						</div>
+					{% endif %}
+				  </div>
+				</div>
+				<a href="{% url 'Home' %}"><img src="/media/logo.png" alt=""></a>
+                {% if user.is_authenticated %}
+                  <a href="{% url 'MyWebsiteUsers:logout' %}" class="btn btn-danger ">Wyloguj</a>
+                  {% else %}
+                  <a href="{% url 'MyWebsiteUsers:login' %}" class="btn btn-danger ">Zaloguj</a>
+				  <a href="{% url 'MyWebsiteUsers:register' %}" class="btn btn-danger">Rejestracja</a>
+                  {% endif %}
+			</div>
+			<div class="showcase-content">
+				<h1 class="display-3">Witaj, {{ user.username }}!</h1>
+				<p class="lead">Witamy w Moja Biblioteka Filmowa!</p>
+                {% if user.is_authenticated %}
+                <h4>Zapraszamy do przeglądania lub wyszukiwania filmów!</h4>
+                {% else %}
+				<a href="{% url 'MyWebsiteUsers:register' %}" class="btn btn-danger btn-xl"
+					>Utwórz konto ? <i class="fas fa-chevron-right btn-icon"></i
+				></a>
+                {% endif %}
+			</div>
+</header>
+		<section class="tabs">
+			<div class="container">
+				<div id="tab-1" class="tab-item tab-border">
+					<i class="fas fa-film fa-3x"></i>
+					<p class="hide-sm">Kolekcja Filmów</p>
+				</div>
+				<div id="tab-2" class="tab-item">
+					<i class="far fa-address-book fa-3x"></i>
+					<p class="hide-sm">Reżyserowie</p>
+				</div>
+				<div id="tab-3" class="tab-item">
+					<i class="fas fa-tags fa-3x"></i>
+					<p class="hide-sm">Top 10 filmów</p>
+				</div>
+			</div>
+		</section>
+		<section class="tab-content">
+			<div class="container">
+				<!-- Tab Content 1 -->
+				<div id="tab-1-content" class="tab-content-item show">
+					<div class="tab-1-content-inner">
+						<div>
+							<p class="text-lg">
+								Oglądaj kolekcje filmową w dowolnym miejscu i czasie.
+							</p>
+							<div class="animate">
+								<a href="{% url 'AllMovies' %}"><h5> Zobacz Filmy <i class="fas fa-video"></i></h5></a>
+							</div>
+						</div>
+						<div class="swiper-container">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide"><img src="/media/films_image/gol.jpg"></div>
+								<div class="swiper-slide"><img src="/media/films_image/pokemon-detektyw-pikachu-i72452.jpg"></div>
+								<div class="swiper-slide"><img src="/media/films_image/DJANGO.jpg"></div>
+								<div class="swiper-slide"><img src="/media/films_image/Gladiator.jpg"></div>
+								<div class="swiper-slide"><img src="/media/films_image/john wick.jpg"></div>
+							</div>
+							<div class="swiper-pagination"></div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Tab Content 2 -->
+				<div id="tab-2-content" class="tab-content-item">
+					<div class="tab-2-content-top">
+						<p class="text-lg">
+							Reżyserowie moich filmów
+						</p>
+						<a href="{% url 'AllDirectors' %}" class="btn btn-lg"><h5>Reżyserowie moich filmów <i class="fas fa-user-tie"></i></h5></a>
+					</div>
+					<div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><img src="/media/author_image/james_cameron.jpg"></div>
+                            <div class="swiper-slide"><img src="/media/author_image/Rob_Letterman.jpg"></div>
+                            <div class="swiper-slide"><img src="/media/author_image/Wes_Craven_irLrfEN.jpg"></div>
+                            <div class="swiper-slide"><img src="/media/author_image/Steven_Spielberg.jpg"></div>
+                            <div class="swiper-slide"><img src="/media/author_image/Bryan_Singer.jpg"></div>
+						</div>
+						<div class="swiper-pagination"></div>
+                    </div>
+				</div>
+
+				<!-- Tab Content 3 -->
+				<div id="tab-3-content" class="tab-content-item ">
+					<div class="tab-3-content-inner">
+						<div>
+							<p class="text-lg">
+								Dobre Filmy na wieczór, filmy warte obejrzenia.
+							</p>
+						</div>
+						<a href="{% url 'TopTen' %}"><img src="/media/top.png " alt="" /></a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<footer class="bg-dark text-center text-lg-start">
+		  <div class="text-center p-3 text-light" style="background-color: rgba(0, 0, 0, 0.6)">
+			© 2020 Copyright Wszelkie prawa zastrzeżone
+			<a class="text-light" href="{% url 'Home' %}"><br> Moja Biblioteka Filmowa</a>
+		  </div>
+		</footer>
+
+
+    <script src="{% static 'css/home.js' %}"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="{% static 'css/ome.js' %}"></script>
+    <script>
+    var swiper = new Swiper('.swiper-container', {
+      spaceBetween: 30,
+      centeredSlides: true,
+      autoplay: {
+        delay: 2000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
+    function toggleSidebar(ref){
+      document.getElementById("sidebar").classList.toggle('active');
+    }
+  </script>
+</body>
+</html>

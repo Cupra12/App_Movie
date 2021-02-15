@@ -1,0 +1,89 @@
+{% load static %}
+{% load bootstrap %}
+{% block title %}
+
+<title>More Movie Data | Moja Biblioteka Filmoway</title>
+
+{% endblock %}
+
+{% block body %}
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href=https://use.fontawesome.com/releases/v5.1.0/css/all.css>
+<link rel="stylesheet" type="text/css" href="{% static 'css/second_main.css' %}">
+
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="{% static 'js/bootstrap.min.js'%}"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+
+<section id="banner">
+    <div class="container banner-section">
+        <div class="row">
+            <div class="col-md-3 col-sm-12 col-xs-12 main-one">
+                <div class="plakat">
+
+                    <span>  {% for movie in movies %}
+                        <img src="{{ movie.photo.url }}" style="width:226px;height:290">
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-5 col-sm-12 col-xs-12 body-menu">
+
+                <h1 class="tytul"><a href="{% url 'movie_detail' movie.pk%}">{{ movie.name }}</a></h1>
+                <h2 class="tytul">"{{ movie.ang_name }}"</h2>
+                <span class="Info"> Informacje</span>
+                <div class="MoreInfo">{{ movie.description }}</div>
+
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12 reszta">
+                <h3><b>Reżyser</b></h3>
+                <a href="{% url 'DirectorsDetail' movie.film_director.id %}">{{ movie.film_director }}</a>
+                <hr>
+                <h3><b>Gatunek</b></h3>
+                {% for category in movie.categories.all %}
+                <h5>{{ category.name }}</h5>
+                {% endfor %}
+                <hr>
+                <h3><b>Premiera światowa
+                    <h5>{{ movie.year }}</h5>
+                </b></h3>
+                <hr>
+                <h3><b>Data publikacji
+                    <h5>{{ movie.released }}</h5>
+                </b></h3>
+            </div>{% endfor %}
+
+        </div>
+        <div class="col-md-9">
+            <h3><b>Zwiastun</b></h3>
+            {% if user.is_authenticated %}
+            <div class="playVideo">
+                <video width='666' height="370" controls>
+                    <source src="{{ movie.clip.url }}" type='video/mp4'>
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            {% else %}
+            <h1>Aby obejrzeć zwiastun proszę się zalogować/zarejestrować!</h1>
+            {% endif %}
+        </div>
+        <div class="col-md-4" style="margin-top:30px;">
+            <button type="submit" class="btn btn-lg btn-warning"><a href="{% url 'AllMovies' %}">Cofnij
+                <i class="fas fa-undo"></i></a></button>
+        </div>
+    </div>
+    <hr>
+    <div class="footer-copyright text-white text-center py-3 ">
+        © 2020 Copyright Wszelkie prawa zastrzeżone
+        <a href="{% url 'Home' %}"><br><b> Moja Biblioteka Filmowa</b></a>
+    </div>
+
+</section>
+
+{% endblock body  %}

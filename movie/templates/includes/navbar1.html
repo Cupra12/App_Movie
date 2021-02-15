@@ -1,0 +1,39 @@
+
+
+<header>
+			<div class="showcase-top">
+				<div id="sidebar">
+					<div class="toggle-btn" onclick="toggleSidebar(this)">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+					<div class="list">
+						<div class="item" >
+							<a href="{% url 'AllMovies' %}" class="btn btn-danger ">Filmy</a>
+						</div>
+						<div class="item">
+							<a href="{% url 'AllDirectors' %}" class="btn btn-danger ">Reżyserowie</a>
+						</div>
+						<div class="item">
+							<a href="{% url 'TopTen' %}" class="btn btn-danger ">Top10</a>
+						</div>
+					{% if user.is_authenticated %}
+						<div class="item">
+							<a href="{% url 'New_Movie' %}" class="btn btn-danger ">Dodaj Film</a>
+						</div>
+						<div class="item">
+							<a href="{% url 'New_Directors' %}" class="btn btn-danger ">Dodaj Reżysera</a>
+						</div>
+					{% endif %}
+				  </div>
+				</div>
+				<a href="{% url 'Home' %}"><img src="/media/logo.png" alt=""></a>
+                {% if user.is_authenticated %}
+                  <a href="{% url 'MyWebsiteUsers:logout' %}" class="btn btn-danger  ">Wyloguj</a>
+                  {% else %}
+                  <a href="{% url 'MyWebsiteUsers:login' %}" class="btn btn-danger  ">Zaloguj</a>
+				  <a href="{% url 'MyWebsiteUsers:register' %}" class="btn btn-danger ">Rejestracja</a>
+                  {% endif %}
+			</div>
+</header>

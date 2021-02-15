@@ -1,0 +1,51 @@
+
+<header>
+
+
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg ">
+    <a class="navbar-brand" href="{% url 'home' %}"><img src="/media/logo.png" width="166" height="45"
+                                          class="d-inline-block mr-1 align-bottom" alt="">   </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toglle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <nav class="my-2 my-md-0 mr-md-3"></nav>
+
+        <ul class="navbar-nav mr-auto" style="padding-right: 20px;">
+            <li class="nav-item" >
+                <a class="nav-link dropdown-toogle" href="{% url 'AllMovies' %}"> Filmy </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'TopTen' %}"> Top 10 filmów </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link " href="{% url 'AllDirectors' %}"> Reżyserowie </a>
+            </li>
+            {% if user.is_authenticated %}
+            <li id="nav-item dropdown">
+                <a class="nav-link dropdown-toogle" data-toggle="dropdown" href="{% url 'AllMovies' %}"
+                   id="navbarDropdownMenuLink" role="button" aria-haspopup="true" aria-expanded="false">Więcej
+                    <i class="fas fa-sort-down"></i> </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
+                    <a class="dropdown-item  " href="{% url 'New_Movie' %}">Dodaj film</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item " href="{% url 'New_Directors' %}">Dodaj reżysera</a>
+                </div>
+             {% endif %}
+            </li>
+        </ul>
+    </div>
+
+
+        <div class="navbar-nav ml-auto">
+        {% if user.is_authenticated %}
+          <a class="btn btn-primary " href="{% url 'MyWebsiteUsers:logout' %}">Wyloguj</a>
+          {% else %}
+          <a class="btn btn-primary" href="{% url 'MyWebsiteUsers:login' %}">Zaloguj</a>
+          <a class="btn btn-primary" href="{% url 'MyWebsiteUsers:register' %}">Rejestracja</a>
+          {% endif %}
+        </div>
+</nav>
+
+</header>

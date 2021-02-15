@@ -1,0 +1,89 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: 'Arial', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	background: #000;
+	color: white;
+	margin: 0;
+    padding: 0;
+    width: 100%;
+	height: 100vh;
+	position: relative;
+	background: url(/media/bz.jpg) no-repeat center center/cover;
+	box-shadow: inset 220px 200px 350px #000000, inset -20px -50px 350px #000000;
+}
+
+.container {
+	width: 1000px;
+}
+
+
+.carousel-inner {
+    margin-bottom: 4rem;
+    width: 100%;
+    height: 100%;
+}
+
+
+.carousel-caption {
+    position: absolute;
+    top: 35%;
+    transform: translateY(-50%);
+}
+
+
+.carousel-caption h1 {
+    font-size: 400%;
+    text-shadow: 1px 1px 12px #000;
+}
+
+
+.carousel-caption p {
+    font-size: 120%;
+    font-weight: 400;
+    text-shadow: 1px 1px 10px #000;
+}
+
+
+.containerMain {
+    min-height: 40rem;
+    padding-bottom: 3rem;
+}
+
+
+.row {
+    margin-left: 23px;
+    padding-left: 20px;
+}
+
+
+.card {
+    margin-bottom: 2rem;
+    border: 0;
+    margin: auto;
+    text-align: center;
+}
+
+
+.card a {
+    font-size: 120%;
+    font-weight: 400;
+    text-shadow: 1px 1px 22px #000;
+    color: red;
+    text-transform: uppercase;
+}
+
+
+.card img {
+    margin-bottom: .5rem;
+}
+
+
+.card-tittle {
+    text-align:center;
+}

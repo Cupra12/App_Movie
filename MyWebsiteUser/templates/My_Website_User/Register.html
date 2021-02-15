@@ -1,0 +1,49 @@
+{% load bootstrap %}
+{% load static %}
+
+
+{% block title %} <title> Register </title> {% endblock %}
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+{% block content  %}
+    <div class="cointainer">
+        <div class="container-fluidRegister text-center ">
+            <div id="Register">
+                <div class="row">
+                    <div class="col-md-4 col-sm4 col-xs-12"></div>
+                    <div class="col-md-4 col-sm4 col-xs-12">
+                        <div class="zdj_register">
+                            <a href="{% url 'Home' %}">
+                                <img src="/media/logo.png" alt="" />
+                            </a>
+                        </div>
+                        <h1>Rejestracja</h1>
+                        <form role="form" method="post">
+                            {% csrf_token %}
+                            {{form|bootstrap}}
+                            <div class="checkbox"></div>
+                            <div class="form-group">
+                                <p class="text-right">
+                                    <button type="submit" class=" btn btn-danger  text-right">Stwórz
+                                        <i class="fas fa-user-plus"></i></button></p>
+                            </div>
+                        </form>
+                    <div class="border-top pt-3">
+
+                        <small class="text-muted">
+                            <p class="text-center">Czy masz już konto?</p>
+                                <a class="ml-4" href="{% url 'MyWebsiteUsers:login' %}">
+                                    <p class="text-center">Zaloguj się</p></a>
+                        </small>
+                    </div>
+                    <div class="col-md-4 col-sm4 col-xs-12"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'includes/fotter.html' %}
+{% endblock %}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% load bootstrap %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block title %}
+    <title>Main | Moja Biblioteka Filmowa</title>
+    {% endblock %}
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href=https://use.fontawesome.com/releases/v5.1.0/css/all.css>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+
+
+    {% block body %} {% endblock %}
+
+
+</head>
+<body>
+
+    {% include 'includes/navbar1.html' %}
+
+{% block content %}
+    <h1>Ten tag nagłówka zostanie zastąpiony dowolnym szablonem podrzędnym</h1>
+{% endblock %}
+
+    {% include 'includes/fotter.html' %}
+
+
+    <script src="{% static 'css/home.js' %}"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+    var swiper = new Swiper('.swiper-container', {
+      spaceBetween: 30,
+      centeredSlides: true,
+      autoplay: {
+        delay: 2000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
+    function toggleSidebar(ref){
+      document.getElementById("sidebar").classList.toggle('active');
+    }
+
+
+  </script>
+
+</body>
+</html>

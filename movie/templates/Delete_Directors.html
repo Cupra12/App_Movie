@@ -1,0 +1,50 @@
+{% load static %}
+{% load bootstrap %}
+{% block title %}<title>Confirm</title>  {% endblock %}
+{% block body %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href=https://use.fontawesome.com/releases/v5.1.0/css/all.css>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+
+
+    <div class="container-fluidDelete main text-center">
+        <div class="Delete">
+            <div class="row">
+                <div class="col-md-4 col-sm4 col-xs-12"></div>
+                <div class="col-md-4 col-sm4 col-xs-12">
+                    <div class="alert alert-danger" role="alert">
+                        <h2>Czy napewno usunąć reżysera "{{director.name_surname}}" ? </h2>
+                        <hr>
+                            <div id="zdjDelete">
+                                <a href="#"><img src="{{ director.director_photo.url }}" ></a>
+                            </div>
+                </div>
+                    <form method="post">
+                         {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 ">
+                                <button type="submit" class="btn btn-lg btn-light"><a href="{% url 'DirectorsDetail' director.pk %}">Cofnij
+                                    <i class="fas fa-undo"></i></a></button>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-lg btn-light">Tak
+                                    <i class="fas fa-check"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                <div class="col-md-4 col-sm4 col-xs-12"></div>
+            </div>
+        </div>
+    </div>
+<hr>
+<footer>
+		  <div class="text-center p-3 text-light">
+			© 2020 Copyright Wszelkie prawa zastrzeżone
+			<a class="text-light" href="{% url 'Home' %}"><br> Moja Biblioteka Filmowa</a>
+		  </div>
+</footer>
+
+{% endblock %}

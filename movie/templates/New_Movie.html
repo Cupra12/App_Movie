@@ -1,0 +1,52 @@
+
+{% load static %}
+{% load bootstrap %}
+{% block title %}<title>Save Movie</title>  {% endblock %}
+{% block body %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href=https://use.fontawesome.com/releases/v5.1.0/css/all.css>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+
+
+
+    <div class="container-fluidNewEdit">
+        <div class="NewEdit">
+            <div class="row">
+                <div class="col-md-4 col-sm4 col-xs-12"></div>
+                <div class="col-md-4 col-sm4 col-xs-12">
+                    <h1>Dodawanie Filmu</h1>
+                    <div class="card bg-light mb-3">
+                        <form method="POST" enctype="multipart/form-data">
+                             {% csrf_token %}                                                                       <!-- jest to potrzebne jak by tego nie było to nie działały by strony -->
+                            {{form|bootstrap}}
+                            <!-- dodoanie boblioteki bootstrap do form-->
+
+                    </div>
+                        <div class="checkbox"></div>
+                           <div class="row">
+                               <div class="col-md-6 ">
+                                   <button type="submit" class="btn btn-lg btn-light"><a href="{% url 'AllMovies' %}">Cofnij <i class="fas fa-undo"></i></a></button>
+                               </div>
+                               <div class="col-md-6 ">
+                                    <button type="submit" class="btn btn-lg  btn-light">Zapisz
+                                        <i class="fas fa-save"></i></button>
+                               </div>
+                           </div>
+                </div>
+                <div class="col-md-4 col-sm4 col-xs-12"></div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+                    var name = "{{ user.id }}";
+                    document.getElementById("admin").value = name;
+    </script>
+{% include 'includes/fotter.html' %}
+{% endblock %}
+
+
+

@@ -1,0 +1,154 @@
+:root {
+	--primary-color: #e50914;
+	--dark-color: #141414;
+	--light-color: #f4f4f4;
+}
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+body {
+    color: #fff;
+    padding: 0px;
+    background: url(/media/sad.jpg) no-repeat center center/cover;
+    box-shadow: inset 120px 100px 250px #000000, inset -120px -100px 250px #000000;
+    position: relative;
+    font-family: 'Arial', sans-serif;
+	-webkit-font-smoothing: antialiased;
+
+}
+
+
+/*--------------------------------------------MoreMovieData-----------------------------------------------------------*/
+
+.container {
+    width: 980px;
+    padding: 16px;
+    -webkit-box-shadow: -2px 8px 36px 22px rgba(0,0,0,0.90);
+    -moz-box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+    box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+}
+
+.banner-section {
+    background-color: #111111;
+    padding-top: 30px;
+    padding-bottom: 30px;
+	border: solid 1px #5862b6;
+	border-radius: 20px;
+}
+
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.main-one .plakat {
+    min-width: 200px;
+    min-height: 300px;
+    margin: 10px;
+}
+
+h1.tytul {
+    font-size: 40px;
+    margin: 0;
+}
+
+h2.tytul {
+    color: red;
+    font-size: 20px;
+    margin: 15;
+
+}
+
+span.info {
+    color: white;
+    padding: 5px;
+    background: black;
+    margin-top: 10px;
+    width: 100px;
+    display: block;
+    font-weight; 700;
+    font-size: 19px;
+}
+
+.MoreInfo {
+    color: #aaa79d;
+    text-algin: justify;
+    background-color: black;
+    padding: 10px 8 px;
+    font-size: 15px;
+}
+
+.reszta {
+   background-repeat: no-repeat;
+   background-position: -25px 10px;
+}
+
+.playVideo {
+    border: solid 2px #3d3d3d;;
+
+}
+
+.infoContent {
+    background: #1c1c1c;
+    font-size: 11px;
+    color: #636363;
+}
+
+.MR {
+    border-top: 1px solid red;
+}
+
+#star {
+    color: #FFD700;
+}
+#stars {
+    color: #FFD700;
+
+}
+
+#heart {
+    color: #CD5C5C;
+}
+
+#like {
+    color: #6495ED;
+}
+
+
+/*--------------------------------------------Komenatarze----------------------------------------------------------*/
+
+.CommentsBlock {
+    background-color: #111;
+    padding: 7px 8px;
+    margin-top: 10px;
+    width: 980px;
+    padding: 16px;
+    margin-left: auto;
+	margin-right: auto;
+	-webkit-box-shadow: -2px 8px 36px 22px rgba(0,0,0,0.90);
+    -moz-box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+    box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+    border: solid 1px #5862b6;
+    border-radius: 20px;
+
+}
+
+.comenting {
+    color: white;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+    min-height: 50px;
+    font-size: 14px;
+}
+
+.comenting .info {
+    font-size: 10px;
+    color: #565656;
+}
+

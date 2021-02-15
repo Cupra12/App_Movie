@@ -1,0 +1,46 @@
+{% load static %}
+{% load bootstrap %}
+{% block title %}<title>Confirm</title>  {% endblock %}
+{% block body %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href=https://use.fontawesome.com/releases/v5.1.0/css/all.css>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+
+
+    <div class="container-fluidDelete main text-center">
+        <div class="Delete">
+            <div class="row">
+                <div class="col-md-4 col-sm4 col-xs-12"></div>
+                <div class="col-md-4 col-sm4 col-xs-12">
+                    <div class="alert alert-danger" role="alert">
+
+                        <h2>Czy napewno usunąć Komentarz ? </h2>
+
+                        <hr>
+
+                </div>
+                    <form method="post">
+                         {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-md-6 ">
+                                <button type="submit" class="btn btn-lg btn-light"><a href="{% url 'AllMovies'  %}">Cofnij
+                                    <i class="fas fa-undo"></i></a></button>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-lg btn-light">Tak
+                                    <i class="fas fa-check"></i></button>
+
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                <div class="col-md-4 col-sm4 col-xs-12"></div>
+            </div>
+        </div>
+    </div>
+{% include 'includes/fotter.html' %}
+
+{% endblock %}
