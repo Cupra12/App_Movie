@@ -3,14 +3,14 @@
 {% load static %}
 
 {% block title %}
-<title>Save Directors</title>
+<title>Save Profile Page</title>
 {% endblock %}
 
 {% block content %}
 
 
     <div class="container banner-section">
-        <h1>Dodawanie Reżysera</h1>
+        <h1>Utwórz Stronę Profil</h1>
         <hr class="MR">
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
@@ -22,7 +22,7 @@
         </div>
         </form>
         <div class="col-md-6 ">
-            <button type="submit" class="btn btn-lg btn-light"><a href="{% url 'AllDirectors' %}">Cofnij
+            <button type="submit" class="btn btn-lg btn-light"><a href="{% url 'AllMovies' %}">Cofnij
                 <i class="fas fa-undo"></i></a></button>
         </div>
     </div>

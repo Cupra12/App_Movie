@@ -1,20 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CommentForm, Directors_Form, Movie_Form
-from .models import Movie, Comment, Category, Director
-from django.views.generic import ListView, DeleteView
+from .models import Movie, Comment, Category, Director, Like
+from django.views.generic import ListView
 from django.core.paginator import Paginator
-from django.urls import reverse_lazy, reverse
 from django.contrib import messages
-from django.http import HttpResponseRedirect, HttpResponse
-from django.template import loader
-
-
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 
 
 
 def HomeView(request):
     return render(request, 'Home.html')
+
 
 
 class AllMovies(ListView):
@@ -33,14 +31,12 @@ class AllMovies(ListView):
             search_term=self.request.GET.get('search', ''),
             params=get_dict_copy.urlencode()
         )
-
     def get_queryset(self, *args, **kwargs):
         films = super().get_queryset(*args, **kwargs)
         if 'search' in self.request.GET:
             search_term = self.request.GET['search']
             return films.filter(name__icontains=search_term)
         return films
-
 
 
 
@@ -51,10 +47,11 @@ def movie_category(request, category):
 
 
 def movie_detail(request, pk):
+    postq = Movie.objects.all()
     post = Movie.objects.get(pk=pk)
     comments = Comment.objects.filter(post=post)
-
     form = CommentForm()
+    user = request.user
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -63,18 +60,22 @@ def movie_detail(request, pk):
                 body=form.cleaned_data["body"],
                 ratings=form.cleaned_data["ratings"],
                 post=post,
-
             )
             comment.save()
+    return render(request, "movie_detail.html", {"post": post, "comments": comments, "form": form, "user": user, "postq": postq})
 
-    return render(request, "movie_detail.html", {"post": post, "comments": comments, "form": form})
 
 
 def TopTen(request):
     movies = Movie.objects.all()
     comments = Comment.objects.filter(ratings=10)
-
-    return render(request, 'TopTen.html', {'movies': movies, "comments": comments})
+    user = request.user
+    context = {
+        'movies': movies,
+        'comments': comments,
+        'user': user,
+    }
+    return render(request, 'TopTen.html', context)
 
 
 
@@ -110,27 +111,37 @@ def DirectorsDetail(request, id):
 
 
 def New_Directors(request):
-    form = Directors_Form(request.POST or None, request.FILES or None)
-    if form.is_valid():
-        form.save()
-        return redirect('AllDirectors')
+    if request.method == 'POST':
+        form = Directors_Form(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Reżyser został dodany!')
+            return redirect('AllDirectors')
+    else:
+        form = Directors_Form()
     return render(request, 'New_Directors.html', {'form': form})
 
 
-def Edit_Movie(request, id):                        # edycja filmu
+
+def Edit_Movie(request, id):
     movie = get_object_or_404(Movie, pk=id)
     form = Movie_Form(request.POST or None, request.FILES or None, instance=movie)
     if form.is_valid():
         form.save()
         return redirect('AllMovies')
-
     return render(request, 'New_Movie.html', {'form': form})
 
+
+
 def New_Movie(request):
-    form = Movie_Form(request.POST or None, request.FILES or None)
-    if form.is_valid():
-        form.save()
-        return redirect('AllMovies')
+    if request.method == 'POST':
+        form = Movie_Form(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Film został dodany!')
+            return redirect('AllMovies')
+    else:
+        form = Movie_Form()
     return render(request, 'New_Movie.html', {'form': form})
 
 
@@ -144,15 +155,14 @@ def Delete_Movie(request, id):
 
 
 
-
-def Edit_Directors(request, id):                        # edycja filmu
+def Edit_Directors(request, id):
     director = get_object_or_404(Director, pk=id)
     form = Directors_Form(request.POST or None, request.FILES or None, instance=director)
     if form.is_valid():
         form.save()
         return redirect('AllDirectors')
-
     return render(request, 'New_Directors.html', {'form': form})
+
 
 
 def Delete_Directors(request, id):
@@ -164,14 +174,21 @@ def Delete_Directors(request, id):
 
 
 
-
-
-def Testowa_Strona(request):
-    test = Movie.objects.all()
-    return render(request, 'Testowa_Strona.html', {'test': test})
-
-def Testowa_Strona2(request):
-
-    return render(request, 'Home.html')
-
+def LikeView(request, pk):
+    user = request.user
+    if request.method == 'POST':
+        poster_id = request.POST.get('movie_id')
+        movie_obj = Movie.objects.get(pk=str(pk))
+        if user in movie_obj.likes.all():
+            movie_obj.likes.remove(user)
+        else:
+            movie_obj.likes.add(user)
+        like, created = Like.objects.get_or_create(user=user, poster_id=str(pk))
+        if not created:
+            if like.value == 'Like':
+                like.value = 'Unlike'
+            else:
+                like.value = 'Like'
+        like.save()
+    return HttpResponseRedirect(reverse('movie_detail', args=[str(pk)]))
 

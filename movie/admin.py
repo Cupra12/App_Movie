@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Movie, Category, Director, Comment, TopTen
+from .models import Movie, Category, Director, Comment, Like
 
 
 @admin.register(Movie)
@@ -8,11 +8,12 @@ class MovieAdmin(admin.ModelAdmin):
     list_filter = ('year', 'released')
     search_fields = ('name', 'description')
 
+
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
-
 
 
 
@@ -32,9 +33,11 @@ class MovieAdmin(admin.ModelAdmin):
 
 
 
-@admin.register(TopTen)
+@admin.register(Like)
 class MovieRatingAdmin(admin.ModelAdmin):
-    list_display = ('post', )
-    list_filter = ('ratings',)
-    search_fields = ('post',)
+    list_display = ('user', )
+    list_filter = ('poster', 'value')
+    search_fields = ('user',)
+
+
 

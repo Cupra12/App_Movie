@@ -3,50 +3,57 @@
 {% load static %}
 
 {% block title %}
-<title>Top Ten | Private Movie Library</title>
+<title>Top Ten | Moja Biblioteka Filmowa</title>
 {% endblock %}
+
 
 {% block content %}
 
 {% if user.is_authenticated %}
 
+            {% if not comments.all %}
+            <div class="naglowek" >
+                <br><br><br><br>
+                <p>Brak ocenionych filmów!</p>
+                <a href="{% url 'AllMovies' %}"><p>Dodaj <i class="fas fa-plus" id="plus"></i></p></a>
+            </div>
+            {% else %}
+    <div class="Top">
+            <div class="naglowek" >
+                <p>Ranking Filmów</p>
+            </div>
+            <div class="menuWrapTop">
+                {% for comment in comments %}
+                <div class="top-list-item ">
+                        <div class="photo-top">
+                           <a href="{% url 'movie_detail' comment.post.pk%}"><img src="{{ comment.post.photo.url }}"></a>
+                        </div>
+                        <div class="tytul-top" >
+                            <a href="{% url 'movie_detail' comment.post.pk%}">"{{ comment.post }}"</a>
+                            <p>{{comment.post.year}}</p></br></br>
 
-    <header>
-        <main>
-            <section class="top-ten">
-                <div class="container">
-                    <header>
-                        <h3>Ranking</h3>
-                        <p class="top"><i class="fas fa-2x fa-star" id="fas"></i> Oto lista najlepiej ocenianych filmów przez fanów kina w 2019 roku
-                            <i class="fas fa-2x fa-star" id="fas"></i></p>
-                    </header>
-                    {% if not comments.all %}
-                        <h1>Brak ocenionych filmów!</h1>
-
-                        <a href="#"><h2>Dodasz ?</h2></a>
-
-                    <div class="row">
-                        {% else %}
-                            {% for comment in comments %}
-                            <div class="col-sm-6 col-md-5 offset-md-1 ">
-                                <p class="top"></p>
-                                <a href="#"><img src="{{ comment.post.photo.url }}" width="300" height="465" ></a>
-                                <p class="top"></p>
-                                        <h1> "{{ comment.post }}"</h1>
-                                            <i class="fas fa-2x fa-star" id="fas"></i>
-                                            {{ comment.ratings }} / 10
-                                            <i class="fas fa-2x fa-star" id="fas"></i></br>
-                                            Oceniony dnia: {{comment.created_on }}</br>
-                                            przez: <b>{{ comment.author }} </b>
-                            </div>
+                            {% for post in movies %}
+                                <strong class="text-secondary">{{ post.likes.all.count}} polubień</strong>
                             {% endfor %}
-                        {% endif %}
-                    </div>
+
+                        </div>
+                        <div class="info_list">
+                            <i class="fas fa-2x fa-star" id="gwiazdka" ></i>
+                                {{ comment.ratings }} / 10</br>
+                           <a class="text-muted"> Oceniony dnia:</br>{{ comment.created_on|date:'d-m-Y' }}</br>
+                               przez:</a> {{ comment.author }}
+                        </div>
                 </div>
-            </section>
-        </main>
-    </header>
+               {% endfor %}
+            {% endif %}
+           </div>
+    </div>
 {% else %}
-    <h1>Dostęp do tej strony jest jedynie możliwy po zalogowaniu / zarejestrowaniu się!</h1>
+    <div class="naglowek" >
+        <p>Dostęp do tej strony jest jedynie możliwy po zalogowaniu / zarejestrowaniu się!</p>
+        <img src="/media/ace.png" alt="">
+    </div>
 {% endif %}
 {% endblock %}
+
+

@@ -1,0 +1,42 @@
+{% extends 'main.html' %}
+{% load bootstrap %}
+{% load static %}
+
+{% block title %}
+<title> Edit Profile </title>
+{% endblock %}
+
+{% block content  %}
+
+    <div class="cointainer">
+        <div class="container-fluidRegister text-center ">
+            <div id="Register">
+                <div class="row">
+                    <div class="col-md-4 col-sm4 col-xs-12"></div>
+                    <div class="col-md-4 col-sm4 col-xs-12">
+                        <h1>Edycja Ustawień</h1>
+                        <form role="form" method="post">
+                            {% csrf_token %}
+                            {{form|bootstrap}}
+                            <div class="checkbox"></div>
+                            <div class="form-group">
+                                <p class="text-right">
+                                    <button type="submit" class=" btn btn-danger  text-right">Aktualizuj
+                                        <i class="fas fa-user-plus"></i></button></p>
+                            </div>
+                        </form>
+                    <div class="border-top pt-3">
+
+                        <small class="text-muted">
+                            <p class="text-center">Czy masz już konto?</p>
+                                <a class="ml-4" href="{% url 'MyWebsiteUsers:login' %}">
+                                    <p class="text-center">Zaloguj się</p></a>
+                        </small>
+                    </div>
+                    <div class="col-md-4 col-sm4 col-xs-12"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

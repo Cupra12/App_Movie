@@ -1,71 +1,57 @@
-{% load static %}
+{% extends 'main.html' %}
 {% load bootstrap %}
+{% load static %}
+
 {% block title %}
-
 <title>Directors Detail | Moja Biblioteka Filmoway</title>
-
 {% endblock %}
 
-{% block body %}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href=https://use.fontawesome.com/releases/v5.1.0/css/all.css>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+{% block content %}
 
 
-<div class="container">
-    <div class="containeDirectors">
-        <div class="col">
-            <div class="background-color-contentDirector">
-                <h1><b>{{ director }}</b></h1>
-                    <hr>
-                    <img src="{{ director.director_photo.url }}" width="250">
-                    <hr>
-
-                    <h2><b>Urodzony</b></h2>
-                    <h5>{{ director.birthday }}</h5>
-
-                <hr>
-                <h2><b>Informacje o reżyserze</b></h2>
-                <h4>{{ director.about_director  }}</h4>
-                <hr>
-                 <h2><b>Lista filmów reżysera</b></h2>
-
-                    <div id="listaDirector">
-                    <ol >
-                    {% for movie in director.movie_set.all %}
-                        <li><a href="{%  url 'movie_detail' movie.id %}">
-                            <h5>"{{ movie }}"</h5></a>
-                        </li>
-                    {% endfor %}
-                    </ol>
-                    </div><hr>
+    <div class="container">
+        <div class="containeDirectors">
+            <div class="col">
+                <div class="background-color-contentDirector">
+                    <h1><b>{{ director }}</b></h1>
+                        <hr class="MR">
+                        <img src="{{ director.director_photo.url }}" width="250">
+                        <hr class="MR">
+                        <h2><b>Urodzony</b></h2>
+                        <h5>{{ director.birthday }}</h5>
+                    <hr class="MR">
+                    <h2><b>Informacje o reżyserze</b></h2>
+                    <h4>{{ director.about_director  }}</h4>
+                    <hr class="MR">
+                     <h2><b>Lista filmów reżysera</b></h2>
+                        <div id="listaDirector">
+                        <ol >
+                        {% for movie in director.movie_set.all %}
+                            <li><a href="{%  url 'movie_detail' movie.id %}">
+                                <h5>"{{ movie }}"</h5></a>
+                            </li>
+                        {% endfor %}
+                        </ol>
+                        </div><hr class="MR">
                     {% if user.is_authenticated %}
-                    <div class="col-sm-4" style="margin-top:50px; ">
-                        <a href="{% url 'Edit_Directors' director.pk %}"><i class="fas fa-2x fa-edit"></i>Edytuj </a>
-                    </div>
 
-                    <div class="col-sm-4" style="margin-top:50px;">
-                        <a href="{% url 'Delete_Directors' director.pk %}"><i class="fas fa-2x fa-trash-alt"></i> Usuń </a>
-                    </div>
+                        <div class="col-sm-4" style="margin-top:50px; ">
+                            <a href="{% url 'Edit_Directors' director.pk %}"><i class="fas fa-2x fa-edit"></i>Edytuj </a>
+                        </div>
+                        <div class="col-sm-4" style="margin-top:50px;">
+                            <a href="{% url 'Delete_Directors' director.pk %}"><i class="fas fa-2x fa-trash-alt"></i> Usuń </a>
+                        </div>
+
                     {% else %}
-                    <h1>Dostęp do tej funkcjonalności jest jedynie możliwy po zalogowaniu / zarejestrowaniu się!</h1>
+                        <h3>Dostęp do tej funkcjonalności jest jedynie możliwy po zalogowaniu / zarejestrowaniu się!</h3>
                     {% endif %}
-                    <div class="col-sm-4" style="margin-top:50px;">
-                        <button  type="submit" class="btn btn-lg btn-warning"><a href="{% url 'AllDirectors' %}">Cofnj
-                        <i class="fas fa-undo"></i></a></button>
-                    </div>
-
+                        <div class="col-sm-4" style="margin-top:50px;">
+                            <button  type="submit" class="btn btn-lg btn-warning"><a href="{% url 'AllDirectors' %}">Cofnj
+                            <i class="fas fa-undo"></i></a></button>
+                        </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<hr>
-<footer>
-		  <div class="text-center p-3 text-light">
-			© 2020 Copyright Wszelkie prawa zastrzeżone
-			<a class="text-light" href="{% url 'Home' %}"><br> Moja Biblioteka Filmowa</a>
-		  </div>
-</footer>
-
 {% endblock %}
+

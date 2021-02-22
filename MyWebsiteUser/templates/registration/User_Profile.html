@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+{% load bootstrap %}                                  <!-- dodoanie boblioteki bootstrap-->
+{% load static %}
+
+{% block title %}
+<title>User Profile Page | Moja Biblioteka Filmowa</title>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluidLogin main text-center">
+        <div id="Login">
+            <div class="row">
+                <div class="col-md-4 col-sm4 col-xs-12"></div>
+                <div class="col-md-4 col-sm4 col-xs-12">
+                    <h1>Profil użytkownika</h1>
+                    <img src="{{user.profile.my_photo.url}}" width=200 height=200 class="rounded-circle"></a>
+                    <p>Nazwa: {{ page_user }}</p>
+                    <p>Imię: {{ page_user.user.first_name }}</p>
+                    <p>Nazwisko:{{ page_user.user.last_name }}</p>
+                    <p>Email: {{ page_user.user.email }}</p>
+                    <p>Strona internetowa: {{ profile.website_url }}</p>
+                </div>
+                <div class="item">
+                    <a href="{% url 'MyWebsiteUsers:edit_profile_page' user.profile.pk %}" class="btn btn-danger ">Edytuj Profil</a>
+                </div>
+                <div class="col-md-4 col-sm4 col-xs-12"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

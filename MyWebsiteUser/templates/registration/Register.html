@@ -1,8 +1,12 @@
 {% load bootstrap %}
 {% load static %}
 
-
-{% block title %} <title> Register </title> {% endblock %}
+{% block title %}
+<title> Register </title>
+{% endblock %}
+{% block extrahead %}
+        <link rel="shortcut icon" href="{% static 'fav.png' %}"/>
+{% endblock %}
 
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -10,6 +14,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 {% block content  %}
+
     <div class="cointainer">
         <div class="container-fluidRegister text-center ">
             <div id="Register">

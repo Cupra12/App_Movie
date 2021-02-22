@@ -1,8 +1,12 @@
 {% load bootstrap %}                                  <!-- dodoanie boblioteki bootstrap-->
 {% load static %}
 
-{% block title %} <title> Login </title> {% endblock %}
-
+{% block title %}
+<title> Login Page </title>
+{% endblock %}
+{% block extrahead %}
+        <link rel="shortcut icon" href="{% static 'fav.png' %}"/>
+{% endblock %}
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">

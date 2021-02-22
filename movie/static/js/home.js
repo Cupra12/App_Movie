@@ -5,6 +5,7 @@ function odliczaj() //ZEGAR i DATA
   let month = today.getMonth()+1;
   let year = today.getFullYear();
   let hour = today.getHours();
+
   if(hour<10) hour = "0"+hour;
   let minute = today.getMinutes();
   if(minute<10) minute = "0"+minute;
@@ -51,6 +52,8 @@ function removeShow() {
 tabItems.forEach(item => {
 	item.addEventListener('click', selectItem);
 });
+
+
 
 
 

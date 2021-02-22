@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
-from ckeditor.fields import RichTextField
+
 
 
 class Director(models.Model):
     name_surname = models.CharField(max_length=100, unique=True)
-    director_photo = models.ImageField(upload_to='other/author_image_user/', blank=True, null=True, default='films_image/domyslny.jpg')
+    director_photo = models.ImageField(upload_to='other/author_image/', blank=True, null=True, default='films_image/domyslny.jpg')
     birthday = models.DateField(null=True, blank=True)
     about_director = models.TextField(default="")
 
@@ -19,6 +19,7 @@ class Director(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=20)
+
     def __str__(self):
         return self.name
     class Meta:
@@ -39,7 +40,6 @@ RATING_CHOICES = [
         (10, '10 - Arcydzieło'),
     ]
 
-
 class Movie(models.Model):
     name = models.CharField(max_length=100, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -48,10 +48,14 @@ class Movie(models.Model):
     film_director = models.ForeignKey(Director, on_delete=models.CASCADE)
     year = models.IntegerField(null=True, blank=True)  # null pole wymagane true / false
     released = models.DateField(null=True, blank=True)  # wypuszczony(produkcja) filmu
-    photo = models.ImageField(null=True, blank=True, upload_to='other/image_user/', default='films_image/domyslny.jpg')
+    photo = models.ImageField(null=True, blank=True, upload_to='other/image_movie/', default='films_image/domyslny.jpg')
     categories = models.ManyToManyField("Category", related_name="posts")
-    clip_movie = models.FileField(null=True, blank=True, upload_to='other/videos_user/', default='videos/videoplayback.mp4')
+    clip_movie = models.FileField(null=True, blank=True, upload_to='other/videos_movie/', default='videos/videoplayback.mp4')
+    likes = models.ManyToManyField(User, related_name='like_page')
 
+    @property
+    def total_likes(self):
+        return self.likes.all().count()
 
     def __str__(self):
         return self.name
@@ -67,21 +71,23 @@ class Comment(models.Model):
     post = models.ForeignKey("movie", on_delete=models.CASCADE)
     ratings = models.PositiveSmallIntegerField(choices=RATING_CHOICES, default=5)
 
-
     class Meta:
         verbose_name = "Comment"
         verbose_name_plural = "Comment"
 
+LIKE_CHOICES = (
+    ('Like', 'Like'),
+    ('Unlike', 'Unlike')
+)
 
-class TopTen(models.Model):
-    post = models.ForeignKey("movie", on_delete=models.CASCADE)
-    ratings = models.ForeignKey("comment", on_delete=models.CASCADE)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
-    created_on = models.DateTimeField(auto_now_add=True,  null=True, blank=True)
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    poster = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    value = models.CharField(choices=LIKE_CHOICES, default='Like', max_length=10)
 
     def __str__(self):
-        return '{}'.format(self.post)
+        return str(self.poster)
 
     class Meta:
-        verbose_name = "TopTen"
-        verbose_name_plural = "TopTen"
+        verbose_name = "Like"
+        verbose_name_plural = "Like"

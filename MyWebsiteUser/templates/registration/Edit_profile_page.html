@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+{% load bootstrap %}
+{% load static %}
+
+{% block title %}
+<title>Edit Profile Page</title>
+{% endblock %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+            {% if user.id == profile.user.id %}
+            <div class="container banner-section">
+                <h1>Edycja strony profilu</h1>
+                <hr class="MR">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form|bootstrap }}
+                    <hr class="MR">
+                <div class="col-md-6 ">
+                    <button type="submit" class="btn btn-lg  btn-light">Zapisz
+                        <i class="fas fa-save"></i></button>
+                </div>
+                </form>
+                <div class="col-md-6 ">
+                    <button type="submit" class="btn btn-lg btn-light"><a href="{% url 'MyWebsiteUsers:profile_page' profile.user.pk %}">Cofnij
+                        <i class="fas fa-undo"></i></a></button>
+                </div>
+            </div>
+
+    {% else %}
+    <div class="naglowek" >
+        <p>Nie jesteś właściwym użytkownikiem do edycji tej strony!</p>
+        <img src="/media/ace.png" alt="">
+    </div>
+    {% endif %}
+{% else %}
+<div class="naglowek" >
+        <p>Dostęp do tej strony jest jedynie możliwy po zalogowaniu / zarejestrowaniu się!</p>
+        <img src="/media/ace.png" alt="">
+</div>
+{% endif %}
+{% endblock %}
+
+
+
+

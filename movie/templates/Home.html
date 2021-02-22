@@ -7,9 +7,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Homepage1</title>
+    <title>HomePage | Moja Biblioteka Filmowa</title>
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main_page.css' %}">
+	<link rel="shortcut icon" href="{% static 'fav.png' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Home_main.css' %}">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href=https://use.fontawesome.com/releases/v5.1.0/css/all.css>
@@ -36,14 +37,8 @@
 						</div>
 						<div class="item">
 							<a href="{% url 'TopTen' %}" class="btn btn-danger btn-xl">Top10</a>
-						</div>
+                    </div>
 					{% if user.is_authenticated %}
-						<!--<div class="item">
-							<a href="{% url 'New_Movie' %}" class="btn btn-danger btn-xl">Dodaj Film</a>
-						</div>
-						<div class="item">
-							<a href="{% url 'New_Directors' %}" class="btn btn-danger btn-xl">Dodaj Reżysera</a>
-						</div>--!>
                         <div class="item">
 							<a class="nav-link" id="clock"></a>
 						</div>
@@ -59,7 +54,11 @@
                   {% endif %}
 			</div>
 			<div class="showcase-content">
+				{% if user.is_authenticated %}
 				<h1 class="display-3">Witaj, {{ user.username }}!</h1>
+					{% else %}
+				<h1 class="display-3">Witamy!</h1>
+					{% endif %}
 				<p class="lead">Witamy w Moja Biblioteka Filmowa!</p>
                 {% if user.is_authenticated %}
                 <h4>Zapraszamy do przeglądania lub wyszukiwania filmów!</h4>
@@ -107,11 +106,9 @@
 								<div class="swiper-slide"><img src="/media/films_image/Gladiator.jpg"></div>
 								<div class="swiper-slide"><img src="/media/films_image/john wick.jpg"></div>
 							</div>
-							<div class="swiper-pagination"></div>
 						</div>
 					</div>
 				</div>
-
 				<!-- Tab Content 2 -->
 				<div id="tab-2-content" class="tab-content-item">
 					<div class="tab-2-content-top">
@@ -124,14 +121,13 @@
                         <div class="swiper-wrapper">
                             <div class="swiper-slide"><img src="/media/author_image/james_cameron.jpg"></div>
                             <div class="swiper-slide"><img src="/media/author_image/Rob_Letterman.jpg"></div>
-                            <div class="swiper-slide"><img src="/media/author_image/Wes_Craven_irLrfEN.jpg"></div>
+                            <div class="swiper-slide"><img src="/media/author_image/Wes_Craven.jpg"></div>
                             <div class="swiper-slide"><img src="/media/author_image/Steven_Spielberg.jpg"></div>
-                            <div class="swiper-slide"><img src="/media/author_image/Bryan_Singer.jpg"></div>
+                            <div class="swiper-slide"><img src="/media/author_image/Bryan Singer.jpg"></div>
 						</div>
-						<div class="swiper-pagination"></div>
+
                     </div>
 				</div>
-
 				<!-- Tab Content 3 -->
 				<div id="tab-3-content" class="tab-content-item ">
 					<div class="tab-3-content-inner">
@@ -145,19 +141,16 @@
 				</div>
 			</div>
 		</section>
-
 		<footer class="bg-dark text-center text-lg-start">
 		  <div class="text-center p-3 text-light" style="background-color: rgba(0, 0, 0, 0.6)">
 			© 2020 Copyright Wszelkie prawa zastrzeżone
 			<a class="text-light" href="{% url 'Home' %}"><br> Moja Biblioteka Filmowa</a>
 		  </div>
 		</footer>
-
-
     <script src="{% static 'css/home.js' %}"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="{% static 'css/ome.js' %}"></script>
+    <script src="{% static 'js/home.js' %}"></script>
     <script>
     var swiper = new Swiper('.swiper-container', {
       spaceBetween: 30,
@@ -165,10 +158,6 @@
       autoplay: {
         delay: 2000,
         disableOnInteraction: false,
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
       },
     });
     function toggleSidebar(ref){

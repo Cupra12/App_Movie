@@ -1,29 +1,14 @@
-
-{% load static %}
+{% extends 'main_two.html' %}
 {% load bootstrap %}
+{% load static %}
+
 {% block title %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>More Movie Data | Moja Biblioteka Filmowa</title>
-
 {% endblock %}
-{% block body %}
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href=https://use.fontawesome.com/releases/v5.1.0/css/all.css>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/second_main.css' %}">
-</head>
+{% block content %}
 
 
-
-
-
-<body>
         <section id="banner">
             <div class="container banner-section">
                     <div class="row">
@@ -64,28 +49,27 @@
                         <h2><b>Zwiastun</b></h2>
                         {% if user.is_authenticated %}
                         <div class="playVideo">
-                            <video width='675' height="385" controls>
+                            <video width="640" height="360" controls>
                                 <source src="{{ post.clip_movie.url }}" type='video/mp4'>
-                                Your browser does not support the video tag.
                             </video>
                         </div>
                         {% else %}
                         <h1>Aby obejrzeć zwiastun proszę się zalogować / zarejestrować!</h1>
                         {% endif %}
                     </div>
-                    <div class="col-md-3" style="margin-top:200px; padding: 40px;">
-                        <i class="fas fa-2x fa-star" id="star"> 5.8 </i>
-                        <div class="info text-muted" >
-                            186 Głosów
-                        </div>
-                        <i class="fas fa-2x fa-heart" id="heart"> 44 </i><br>
-                        <div class="info text-muted" >
-                            113 Serduszek
-                        </div>
-                        <i class="fas fa-2x fa-thumbs-up" id="like"> 12</i>
-                        <div class="info text-muted" >
-                            14 Like
-                        </div>
+                    <div class="col-md-3 col-sm-12 ">
+                        <h2><b>Polubienia</b></h2>
+                        <hr class="MR">
+                        <form action="{% url 'like_movie' post.pk %}" method="POST" class="ui form">
+                            <input type="hidden" name="movie_id" value="{{ post.id }}">
+                            {% csrf_token %}
+                            {% if user not in post.likes.all %}
+                                <button type="submit" class="btn-lg" ><i class="fas fa-2x fa-thumbs-up"></i> </button>
+                            {% else %}
+                                <button type="submit" class="btn-lg"><i class="fas fa-2x fa-thumbs-down"></i> </button>
+                            {% endif %}
+                            <strong class="text-secondary">{{ post.likes.all.count}} lajki</strong>
+		                </form>
                     </div>
                     {% if user.is_authenticated %}
                         {% if user.id == post.author.id %}
@@ -103,7 +87,7 @@
                             <i class="fas fa-undo"></i></a></button>
                     </div>
             </div>
-                <div class="CommentsBlock">
+            <div class="CommentsBlock">
                     <div id="addComment" class="addComment">
                         {% if user.is_authenticated %}
                             <h2>Zostaw komentarz:</h2>
@@ -143,28 +127,17 @@
                              </div>
                          </div>
                     </div>
-                </div>
+            </div>
         </section>
-        <hr>
-        <footer>
-                  <div class="text-center p-3 text-light">
+        <footer class="footer">
+            <div class="bg-dark text-lg-start">
+                <div class="p-3 text-light">
                     © 2020 Copyright Wszelkie prawa zastrzeżone
                     <a class="text-light" href="{% url 'Home' %}"><br> Moja Biblioteka Filmowa</a>
-                  </div>
+                </div>
+            </div>
         </footer>
 
+{% endblock  %}
 
-    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="{% static 'js/bootstrap.min.js'%}"></script>
-    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
-    <script>
-                    var name = "{{ user.id }}";
-                    document.getElementById("admin").value = name;
-    </script>
-</body>
-</html>
 
-{% endblock body  %}
